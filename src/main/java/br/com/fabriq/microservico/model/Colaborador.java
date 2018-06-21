@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 @Entity(name = "colaborador")
 public class Colaborador {
@@ -15,7 +17,17 @@ public class Colaborador {
 	private String nome;
 	private String email;
 	private String telefone;
+	@OneToOne(optional = true)
+	private Departamento departamento;
+	@Transient
+	private Integer iddepartamento;
 	
+	public Integer getIddepartamento() {
+		return iddepartamento;
+	}
+	public void setIddepartamento(Integer iddepartamento) {
+		this.iddepartamento = iddepartamento;
+	}
 	public Integer getId() {
 		return id;
 	}
@@ -47,6 +59,11 @@ public class Colaborador {
 		this.telefone = telefone;
 	}
 	
-	
+	public Departamento getDepartamento() {
+		return departamento;
+	}
+	public void setDepartamento(Departamento departamento) {
+		this.departamento = departamento;
+	}
 	
 }

@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 import br.com.fabriq.microservico.model.Colaborador;
+import br.com.fabriq.microservico.model.Grafico;
 
 @Repository
 @Transactional
@@ -33,4 +34,11 @@ public class ColaboradorDAO {
 	public Colaborador find(Integer id) {
         return manager.createQuery("select c from colaborador c where c.id = :id", Colaborador.class).setParameter("id", id).getSingleResult();
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Grafico> grafico() {
+		return manager.createQuery("select distinct d.nome, count(c.id) as qtd from colaborador c inner join c.departamento d where c.departamento.id = d.id group by d.nome")
+				.getResultList();
+	}
+
 }
